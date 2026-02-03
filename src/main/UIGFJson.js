@@ -70,7 +70,7 @@ const exportUIGF = async (uids) => {
     result.hkrpg.push(dataTemp)
   })
   const filePath = dialog.showSaveDialogSync({
-    defaultPath: path.join(app.getPath('downloads'), fulldata.length > 1 ? `UIGF_${getTimeString()}` : `UIGF_${fulldata[0].uid}_${getTimeString()}`),
+    defaultPath: path.join(app.getPath('downloads'), fulldata.length > 1 ? `UIGF_${getTimeString()}.json` : `UIGF_${fulldata[0].uid}_${getTimeString()}.json`),
     filters: [
       { name: i18n.uigf.fileType, extensions: ['json'] }
     ]
