@@ -860,7 +860,7 @@ ipcMain.handle("FETCH_DATA", async (event, arg) => {
 });
 
 ipcMain.handle("I18N_DATA", () => {
-    return i18n.data;
+    return { ...i18n.data, lang: config.lang };
 });
 
 ipcMain.handle("LANG_MAP", () => {
