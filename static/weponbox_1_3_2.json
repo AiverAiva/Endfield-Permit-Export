@@ -1,0 +1,273 @@
+{
+  "code": 0,
+  "data": {
+    "pool": {
+      "pool_gacha_type": "weapon",
+      "pool_name": "染赤申領",
+      "link_char_pool_name": "逐罪者",
+      "up6_name": "鍍紅祝福",
+      "up6_image": "https://web-static.hg-cdn.com/upload/image/20260625/5fb36d6de4d7c53f2aa3c9cdedba3367.png",
+      "gift_weapon_name": "鍍紅祝福",
+      "gift_weapon_box_name": "補充武庫箱·染赤",
+      "gift_weapon_reward_name": "染赤贈禮",
+      "gift_content": [
+        {
+          "type": 5,
+          "name": "驍勇"
+        },
+        {
+          "type": 5,
+          "name": "J.E.T."
+        },
+        {
+          "type": 6,
+          "name": "同類相食"
+        },
+        {
+          "type": 1,
+          "name": "熱熔切割器"
+        },
+        {
+          "type": 2,
+          "name": "遺忘"
+        },
+        {
+          "type": 3,
+          "name": "典範"
+        }
+      ],
+      "all": [
+        {
+          "id": "wpn_lance_0015",
+          "name": "鍍紅祝福",
+          "rarity": 6,
+          "type": 5
+        },
+        {
+          "id": "wpn_lance_0010",
+          "name": "驍勇",
+          "rarity": 6,
+          "type": 5
+        },
+        {
+          "id": "wpn_lance_0011",
+          "name": "J.E.T.",
+          "rarity": 6,
+          "type": 5
+        },
+        {
+          "id": "wpn_pistol_0009",
+          "name": "同類相食",
+          "rarity": 6,
+          "type": 6
+        },
+        {
+          "id": "wpn_sword_0012",
+          "name": "熱熔切割器",
+          "rarity": 6,
+          "type": 1
+        },
+        {
+          "id": "wpn_funnel_0009",
+          "name": "遺忘",
+          "rarity": 6,
+          "type": 2
+        },
+        {
+          "id": "wpn_claym_0004",
+          "name": "典範",
+          "rarity": 6,
+          "type": 3
+        },
+        {
+          "id": "wpn_lance_0004",
+          "name": "嵌合正義",
+          "rarity": 5,
+          "type": 5
+        },
+        {
+          "id": "wpn_sword_0005",
+          "name": "鋼鐵餘音",
+          "rarity": 5,
+          "type": 1
+        },
+        {
+          "id": "wpn_sword_0007",
+          "name": "堅城鑄造者",
+          "rarity": 5,
+          "type": 1
+        },
+        {
+          "id": "wpn_funnel_0005",
+          "name": "悼亡詩",
+          "rarity": 5,
+          "type": 2
+        },
+        {
+          "id": "wpn_funnel_0007",
+          "name": "莫奈何",
+          "rarity": 5,
+          "type": 2
+        },
+        {
+          "id": "wpn_pistol_0006",
+          "name": "作品：眾生",
+          "rarity": 5,
+          "type": 6
+        },
+        {
+          "id": "wpn_claym_0011",
+          "name": "探驪",
+          "rarity": 5,
+          "type": 3
+        },
+        {
+          "id": "wpn_lance_0013",
+          "name": "O.B.J.尖峰",
+          "rarity": 5,
+          "type": 5
+        },
+        {
+          "id": "wpn_lance_0006",
+          "name": "向心之引",
+          "rarity": 5,
+          "type": 5
+        },
+        {
+          "id": "wpn_sword_0020",
+          "name": "逐鱗3.0",
+          "rarity": 5,
+          "type": 1
+        },
+        {
+          "id": "wpn_sword_0018",
+          "name": "十二問",
+          "rarity": 5,
+          "type": 1
+        },
+        {
+          "id": "wpn_sword_0019",
+          "name": "O.B.J.輕芒",
+          "rarity": 5,
+          "type": 1
+        },
+        {
+          "id": "wpn_sword_0015",
+          "name": "仰止",
+          "rarity": 5,
+          "type": 1
+        },
+        {
+          "id": "wpn_funnel_0004",
+          "name": "迷失荒野",
+          "rarity": 5,
+          "type": 2
+        },
+        {
+          "id": "wpn_funnel_0012",
+          "name": "佈道自由",
+          "rarity": 5,
+          "type": 2
+        },
+        {
+          "id": "wpn_funnel_0014",
+          "name": "O.B.J.術識",
+          "rarity": 5,
+          "type": 2
+        },
+        {
+          "id": "wpn_pistol_0012",
+          "name": "O.B.J.迅極",
+          "rarity": 5,
+          "type": 6
+        },
+        {
+          "id": "wpn_pistol_0004",
+          "name": "理性告別",
+          "rarity": 5,
+          "type": 6
+        },
+        {
+          "id": "wpn_claym_0014",
+          "name": "古渠",
+          "rarity": 5,
+          "type": 3
+        },
+        {
+          "id": "wpn_claym_0012",
+          "name": "終點之聲",
+          "rarity": 5,
+          "type": 3
+        },
+        {
+          "id": "wpn_claym_0015",
+          "name": "O.B.J.重荷",
+          "rarity": 5,
+          "type": 3
+        },
+        {
+          "id": "wpn_lance_0003",
+          "name": "尋路者道標",
+          "rarity": 4,
+          "type": 5
+        },
+        {
+          "id": "wpn_lance_0008",
+          "name": "天使殺手",
+          "rarity": 4,
+          "type": 5
+        },
+        {
+          "id": "wpn_sword_0008",
+          "name": "顯鋒",
+          "rarity": 4,
+          "type": 1
+        },
+        {
+          "id": "wpn_sword_0009",
+          "name": "浪潮",
+          "rarity": 4,
+          "type": 1
+        },
+        {
+          "id": "wpn_funnel_0001",
+          "name": "全自動駭新星",
+          "rarity": 4,
+          "type": 2
+        },
+        {
+          "id": "wpn_funnel_0003",
+          "name": "螢光雷羽",
+          "rarity": 4,
+          "type": 2
+        },
+        {
+          "id": "wpn_pistol_0002",
+          "name": "呼嘯守衛",
+          "rarity": 4,
+          "type": 6
+        },
+        {
+          "id": "wpn_pistol_0003",
+          "name": "長路",
+          "rarity": 4,
+          "type": 6
+        },
+        {
+          "id": "wpn_claym_0003",
+          "name": "工業零點一",
+          "rarity": 4,
+          "type": 3
+        },
+        {
+          "id": "wpn_claym_0009",
+          "name": "淬火者",
+          "rarity": 4,
+          "type": 3
+        }
+      ]
+    },
+    "timezone": 8
+  },
+  "msg": ""
+}
