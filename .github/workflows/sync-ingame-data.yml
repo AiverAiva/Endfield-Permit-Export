@@ -22,33 +22,51 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Sync Pool Data
-        id: pool_sync
+      - name: Sync Pool Data & Translations
+        id: data_sync
         run: |
           node scripts/fetch_pools.js
-          if git diff --quiet static/checkpoint.txt; then
+          node scripts/update_i18n.js
+          
+          git add static/ src/i18n/
+          if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
-            echo "No new pool detected. Skipping subsequent steps."
+            echo "No changes detected. Skipping subsequent steps."
           else
             echo "changed=true" >> $GITHUB_OUTPUT
-            git add static/
-            git commit -m "chore: update daily pool data and checkpoint"
+            git commit -m "chore: update pool data and translations"
             git push
           fi
 
-      - name: Sync Translations (i18n)
-        if: steps.pool_sync.outputs.changed == 'true'
-        run: |
-          node scripts/update_i18n.js
-          git add src/i18n/
-          git commit -m "chore: update translations (i18n)" || echo "No changes to commit"
-          git push
-
-      - name: Sync Assets (Icons & Banners)
-        if: steps.pool_sync.outputs.changed == 'true'
+      - name: Sync Assets (Icons & Banners) to gh-pages
+        if: steps.data_sync.outputs.changed == 'true'
         run: |
           node scripts/download_icons.js
           node scripts/fetch_banners.js
-          git add src/renderer/assets/
-          git commit -m "chore: update character icons and banners" || echo "No changes to commit"
-          git push
+          
+          # Fetch and checkout gh-pages branch if it exists
+          if git ls-remote --exit-code --heads origin gh-pages; then
+            git fetch origin gh-pages
+            git checkout gh-pages
+          else
+            echo "gh-pages branch does not exist yet. Skipping asset sync to gh-pages."
+            exit 0
+          fi
+          
+          # Ensure assets directories exist
+          mkdir -p assets/characters
+          mkdir -p assets/weapons
+          mkdir -p assets/banners
+          
+          # Copy assets
+          cp -r src/renderer/assets/characters/* assets/characters/ 2>/dev/null || true
+          cp -r src/renderer/assets/weapons/* assets/weapons/ 2>/dev/null || true
+          cp -r src/renderer/assets/banners/* assets/banners/ 2>/dev/null || true
+          
+          git add assets/
+          if git diff --staged --quiet; then
+            echo "No asset changes to commit."
+          else
+            git commit -m "chore: update character icons, weapons, and banners"
+            git push origin gh-pages
+          fi

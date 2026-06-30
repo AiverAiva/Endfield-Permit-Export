@@ -526,35 +526,26 @@ const getPityColorText = (pity) => {
   return "text-red-600";
 };
 
-// Use dynamic glob to detect available icons at build/runtime (Vite 2.x compatible)
-const characterIconFiles = import.meta.globEager("../assets/characters/*.png");
-const weaponIconFiles = import.meta.globEager("../assets/weapons/*.png");
-const bannerFiles = import.meta.globEager("../assets/banners/*.png");
+import { getCharacterIconUrl, getWeaponIconUrl, getBannerUrl } from '../config/assets.js';
 
 const getItemIcon = (record) => {
   if (!record.item_id) return null;
-  const fileName = `${record.item_id}.png`;
-  // Search in both character and weapon icons
-  const charKey = Object.keys(characterIconFiles).find(path => path.endsWith(fileName));
-  if (charKey) return characterIconFiles[charKey].default;
-  
-  const wpnKey = Object.keys(weaponIconFiles).find(path => path.endsWith(fileName));
-  return wpnKey ? weaponIconFiles[wpnKey].default : null;
+  // Check if it's a character or weapon
+  if (record.item_type === 'Character') {
+    return getCharacterIconUrl(record.item_id);
+  }
+  if (record.item_type === 'Weapon' || record.item_id.startsWith('wpn_')) {
+    return getWeaponIconUrl(record.item_id);
+  }
+  return null;
 };
 
 const getBannerImage = (poolId) => {
-  const fileName = `${poolId}.png`;
-  const matchKey = Object.keys(bannerFiles).find(path => path.endsWith(fileName));
-  return matchKey ? bannerFiles[matchKey].default : null;
+  return getBannerUrl(poolId);
 };
 
 const getCharacterFullImage = (charId) => {
-  const fileName = `${charId}.png`;
-  const charKey = Object.keys(characterIconFiles).find(path => path.endsWith(fileName));
-  if (charKey) return characterIconFiles[charKey].default;
-  
-  const wpnKey = Object.keys(weaponIconFiles).find(path => path.endsWith(fileName));
-  return wpnKey ? weaponIconFiles[wpnKey].default : null;
+  return getCharacterIconUrl(charId);
 };
 </script>
 
