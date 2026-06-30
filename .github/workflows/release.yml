@@ -48,6 +48,23 @@ jobs:
           asset_path: ./build/app.zip
           asset_name: EndfieldPermitExport.zip
           asset_content_type: application/zip
+      - name: Preserve gh-pages content
+        if: success()
+        run: |
+          git fetch origin gh-pages
+          git checkout gh-pages
+          mkdir -p /tmp/gh-pages-preserve
+          cp -r assets /tmp/gh-pages-preserve/ 2>/dev/null || true
+          cp -r i18n /tmp/gh-pages-preserve/ 2>/dev/null || true
+          git checkout ${{ github.ref_name }}
+
+      - name: Merge preserved content into update dir
+        if: success()
+        run: |
+          mkdir -p ./build/update/assets ./build/update/i18n
+          cp -r /tmp/gh-pages-preserve/assets/* ./build/update/assets/ 2>/dev/null || true
+          cp -r /tmp/gh-pages-preserve/i18n/* ./build/update/i18n/ 2>/dev/null || true
+
       - name: Deploy update
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
