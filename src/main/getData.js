@@ -859,7 +859,8 @@ ipcMain.handle("FETCH_DATA", async (event, arg) => {
     }
 });
 
-ipcMain.handle("I18N_DATA", () => {
+ipcMain.handle("I18N_DATA", async () => {
+    await i18n.refreshed();
     return i18n.data;
 });
 

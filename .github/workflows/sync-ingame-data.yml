@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -38,35 +40,62 @@ jobs:
             git push
           fi
 
-      - name: Sync Assets (Icons & Banners) to gh-pages
+      - name: Sync Assets & i18n to gh-pages
         if: steps.data_sync.outputs.changed == 'true'
         run: |
           node scripts/download_icons.js
           node scripts/fetch_banners.js
+          
+          # Create a temporary directory to preserve files during git checkout
+          rm -rf sync_temp
+          mkdir -p sync_temp/assets/characters
+          mkdir -p sync_temp/assets/weapons
+          mkdir -p sync_temp/assets/banners
+          mkdir -p sync_temp/i18n
+          
+          # Copy assets to temp directory
+          cp -r src/renderer/assets/characters/* sync_temp/assets/characters/ 2>/dev/null || true
+          cp -r src/renderer/assets/weapons/* sync_temp/assets/weapons/ 2>/dev/null || true
+          cp -r src/renderer/assets/banners/* sync_temp/assets/banners/ 2>/dev/null || true
+          
+          # Copy i18n files to temp directory
+          cp src/i18n/*.json sync_temp/i18n/ 2>/dev/null || true
           
           # Fetch and checkout gh-pages branch if it exists
           if git ls-remote --exit-code --heads origin gh-pages; then
             git fetch origin gh-pages
             git checkout gh-pages
           else
-            echo "gh-pages branch does not exist yet. Skipping asset sync to gh-pages."
-            exit 0
+            git checkout --orphan gh-pages
+            git rm -rf .
+            echo "# Assets & i18n" > README.md
+            git add README.md
+            git commit -m "Initial gh-pages commit"
+            git push origin gh-pages 2>/dev/null || git push -u origin gh-pages
+            git checkout main
           fi
           
-          # Ensure assets directories exist
+          # Ensure directories exist
           mkdir -p assets/characters
           mkdir -p assets/weapons
           mkdir -p assets/banners
+          mkdir -p i18n
           
-          # Copy assets
-          cp -r src/renderer/assets/characters/* assets/characters/ 2>/dev/null || true
-          cp -r src/renderer/assets/weapons/* assets/weapons/ 2>/dev/null || true
-          cp -r src/renderer/assets/banners/* assets/banners/ 2>/dev/null || true
+          # Copy assets from temp directory
+          cp -r sync_temp/assets/characters/* assets/characters/ 2>/dev/null || true
+          cp -r sync_temp/assets/weapons/* assets/weapons/ 2>/dev/null || true
+          cp -r sync_temp/assets/banners/* assets/banners/ 2>/dev/null || true
           
-          git add assets/
+          # Copy i18n from temp directory
+          cp sync_temp/i18n/*.json i18n/ 2>/dev/null || true
+          
+          # Clean up temp directory
+          rm -rf sync_temp
+          
+          git add assets/ i18n/
           if git diff --staged --quiet; then
-            echo "No asset changes to commit."
+            echo "No asset or i18n changes to commit."
           else
-            git commit -m "chore: update character icons, weapons, and banners"
+            git commit -m "chore: update character icons, weapons, banners, and i18n translations"
             git push origin gh-pages
           fi

@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const { initWindow } = require('./utils')
 const { disableProxy, proxyStatus } = require('./module/system-proxy')
+const i18n = require('./i18n')
 require('./getData')
 require('./bridge')
 require('./excel')
@@ -18,6 +19,8 @@ function createWindow() {
   if (isDev) {
     win.webContents.openDevTools({ mode: 'undocked', activate: true })
   }
+  // Start background i18n refresh from CDN
+  i18n.refresh().catch(() => {})
 }
 
 const isFirstInstance = app.requestSingleInstanceLock()
