@@ -107,6 +107,7 @@
   "char.chr_0029_pograni": "Pogranichnik",
   "char.chr_0030_zhuangfy": "Zhuang Fangyi",
   "char.chr_0031_mifu": "Mi Fu",
+  "char.chr_0032_lizhiyan": "Arcane",
   "char.chr_0033_camille": "Camille",
   "wpn.wpn_claym_0003": "Industry 0.1",
   "wpn.wpn_claym_0004": "Exemplar",
@@ -137,7 +138,9 @@
   "wpn.wpn_funnel_0013": "Dreams of the Starry Beach",
   "wpn.wpn_funnel_0014": "OBJ Arts Identifier",
   "wpn.wpn_funnel_0015": "Lone Barge",
+  "wpn.wpn_funnel_0016": "Type 42: Solemn Phalanx",
   "wpn.wpn_funnel_0017": "Flickers in the Mist",
+  "wpn.wpn_funnel_0018": "Junction Point",
   "wpn.wpn_lance_0003": "Pathfinder's Beacon",
   "wpn.wpn_lance_0004": "Chimeric Justice",
   "wpn.wpn_lance_0006": "Cohesive Traction",
@@ -149,6 +152,7 @@
   "wpn.wpn_lance_0012": "Mountain Bearer",
   "wpn.wpn_lance_0013": "OBJ Razorhorn",
   "wpn.wpn_lance_0015": "Blessing of Lustrous Carmine",
+  "wpn.wpn_lance_0016": "Golden Age",
   "wpn.wpn_pistol_0001": "Peco 5",
   "wpn.wpn_pistol_0002": "Howling Guard",
   "wpn.wpn_pistol_0003": "Long Road",
@@ -180,5 +184,6 @@
   "wpn.wpn_sword_0020": "Finchaser 3.0",
   "wpn.wpn_sword_0021": "Grand Vision",
   "wpn.wpn_sword_0022": "Lupine Scarlet",
+  "wpn.wpn_sword_0026": "Farsight",
   "symbol.colon": ": "
 }
