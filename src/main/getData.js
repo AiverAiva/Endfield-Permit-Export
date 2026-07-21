@@ -235,6 +235,8 @@ const processGryphlineList = ({ characterList = [], weaponList = [] }) => {
         Number(a.seqId) - Number(b.seqId)
     );
     for (const item of sortedChars) {
+        if (item.kind && item.kind !== "draw") continue;
+
         // Adapt fields
         const date = new Date(parseInt(item.gachaTs));
         const year = date.getFullYear();
