@@ -138,6 +138,7 @@
                     :src="getBannerImage(banner.id)" 
                     class="w-full h-full object-cover object-right opacity-40"
                     style="-webkit-mask-image: linear-gradient(to right, transparent, black 40%); mask-image: linear-gradient(to right, transparent, black 40%);"
+                    @error="markIconFailed(`banner:${banner.id}`)"
                 />
               </div>
 
@@ -254,8 +255,9 @@
                         :src="getItemIcon(record)"
                         class="w-full h-full object-cover"
                         :alt="i18n?.wpn?.[record.item_id] || i18n?.char?.[record.item_id] || record.name"
+                        @error="markIconFailed(record.item_id)"
                       />
-                      <span v-else>{{ (i18n?.wpn?.[record.item_id] || i18n?.char?.[record.item_id] || record.name)[0] }}</span>
+                      <span v-else>{{ (i18n?.wpn?.[record.item_id] || i18n?.char?.[record.item_id] || record.name || '?')[0] }}</span>
                     </div>
                     <!-- Status Tags (Temporarily commented out) -->
                     <!-- <div
@@ -528,8 +530,20 @@ const getPityColorText = (pity) => {
 
 import { getCharacterIconUrl, getWeaponIconUrl, getBannerUrl } from '../config/assets.js';
 
+// Track CDN icons that 404 so we fall back to text initials instead of broken images
+const failedIcons = ref(new Set());
+
+const markIconFailed = (id) => {
+  if (!id || failedIcons.value.has(id)) return;
+  const next = new Set(failedIcons.value);
+  next.add(id);
+  failedIcons.value = next;
+};
+
+const isIconFailed = (id) => !id || failedIcons.value.has(id);
+
 const getItemIcon = (record) => {
-  if (!record.item_id) return null;
+  if (!record?.item_id || isIconFailed(record.item_id)) return null;
   // Check if it's a character or weapon
   if (record.item_type === 'Character') {
     return getCharacterIconUrl(record.item_id);
@@ -541,10 +555,12 @@ const getItemIcon = (record) => {
 };
 
 const getBannerImage = (poolId) => {
+  if (!poolId || isIconFailed(`banner:${poolId}`)) return null;
   return getBannerUrl(poolId);
 };
 
 const getCharacterFullImage = (charId) => {
+  if (!charId || isIconFailed(charId)) return null;
   return getCharacterIconUrl(charId);
 };
 </script>
