@@ -29,8 +29,10 @@ jobs:
         run: |
           node scripts/fetch_pools.js
           node scripts/update_i18n.js
-          
-          git add static/ src/i18n/
+          node scripts/download_icons.js
+          node scripts/fetch_banners.js
+
+          git add static/ src/i18n/ src/renderer/assets/
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "No changes detected. Skipping subsequent steps."
@@ -40,62 +42,19 @@ jobs:
             git push
           fi
 
-      - name: Sync Assets & i18n to gh-pages
+      - name: Stage CDN publish dir
         if: steps.data_sync.outputs.changed == 'true'
         run: |
-          node scripts/download_icons.js
-          node scripts/fetch_banners.js
-          
-          # Create a temporary directory to preserve files during git checkout
-          rm -rf sync_temp
-          mkdir -p sync_temp/assets/characters
-          mkdir -p sync_temp/assets/weapons
-          mkdir -p sync_temp/assets/banners
-          mkdir -p sync_temp/i18n
-          
-          # Copy assets to temp directory
-          cp -r src/renderer/assets/characters/* sync_temp/assets/characters/ 2>/dev/null || true
-          cp -r src/renderer/assets/weapons/* sync_temp/assets/weapons/ 2>/dev/null || true
-          cp -r src/renderer/assets/banners/* sync_temp/assets/banners/ 2>/dev/null || true
-          
-          # Copy i18n files to temp directory
-          cp src/i18n/*.json sync_temp/i18n/ 2>/dev/null || true
-          
-          # Fetch and checkout gh-pages branch if it exists
-          if git ls-remote --exit-code --heads origin gh-pages; then
-            git fetch origin gh-pages
-            git checkout gh-pages
-          else
-            git checkout --orphan gh-pages
-            git rm -rf .
-            echo "# Assets & i18n" > README.md
-            git add README.md
-            git commit -m "Initial gh-pages commit"
-            git push origin gh-pages 2>/dev/null || git push -u origin gh-pages
-            git checkout main
-          fi
-          
-          # Ensure directories exist
-          mkdir -p assets/characters
-          mkdir -p assets/weapons
-          mkdir -p assets/banners
-          mkdir -p i18n
-          
-          # Copy assets from temp directory
-          cp -r sync_temp/assets/characters/* assets/characters/ 2>/dev/null || true
-          cp -r sync_temp/assets/weapons/* assets/weapons/ 2>/dev/null || true
-          cp -r sync_temp/assets/banners/* assets/banners/ 2>/dev/null || true
-          
-          # Copy i18n from temp directory
-          cp sync_temp/i18n/*.json i18n/ 2>/dev/null || true
-          
-          # Clean up temp directory
-          rm -rf sync_temp
-          
-          git add assets/ i18n/
-          if git diff --staged --quiet; then
-            echo "No asset or i18n changes to commit."
-          else
-            git commit -m "chore: update character icons, weapons, banners, and i18n translations"
-            git push origin gh-pages
-          fi
+          mkdir -p ./gh-pages-publish/assets
+          mkdir -p ./gh-pages-publish/i18n
+          cp -r src/renderer/assets/. ./gh-pages-publish/assets/
+          cp src/i18n/*.json ./gh-pages-publish/i18n/
+
+      - name: Mirror assets & i18n to gh-pages
+        if: steps.data_sync.outputs.changed == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages-publish
+          keep_files: true
+          commit_message: "chore: update character icons, weapons, banners, and i18n translations"
