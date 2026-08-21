@@ -23,7 +23,7 @@
 
 一個使用 Electron 製作的小工具，需要在 Windows 64 位元作業系統上執行。
 
-透過讀取遊戲日誌或代理模式取得存取遊戲抽卡記錄 API 所需的 authKey，再使用取得的 authKey 來讀取遊戲抽卡記錄。
+透過鷹角官方帳號（陸服 Hypergryph / 國際服 Gryphline）登入，讀取遊戲抽卡記錄。不需要另外開啟遊戲。
 
 ## 其他語言
 
@@ -32,26 +32,27 @@
 ## 使用說明
 
 1. 下載工具後解壓縮 — 下載位置: [GitHub Releases](https://github.com/AiverAiva/Endfield-Permit-Export/releases/latest)
-2. 開啟遊戲的抽卡詳情頁面
+2. 點擊「帳號登入」（提示：新增帳號）
 
-   ![詳情頁面](docs/wish-history.png)
+   ![帳號登入](docs/login-button.png)
 
-3. 點擊工具的「載入資料」按鈕
+3. 選擇伺服器：陸服 (Hypergryph) 或 國際服 (Gryphline)
 
-   ![載入資料](docs/load-data.png)
+   ![選擇伺服器](docs/login-server.png)
 
-   如果沒出什麼問題，你會看到正在讀取資料的提示，最終效果如下圖所示
+4. 在彈出的登入視窗中登入帳號
 
-   <details>
-    <summary>展開圖片</summary>
+   ![帳號登入視窗](docs/login-window.png)
 
-   ![預覽](docs/preview.png)
+5. 登入成功後，從右上角下拉選單選擇帳號
 
-   </details>
+   ![選擇帳號](docs/account-select.png)
 
-如需匯出多個帳號的資料，可以點擊旁邊的加號按鈕。
+6. 點擊「更新資料」即可讀取抽卡記錄
 
-然後在遊戲中切換新帳號，再次開啟抽卡歷史記錄，再點擊工具的「載入資料」按鈕。
+   ![更新資料](docs/update-data.png)
+
+如需加入其他帳號，再點一次「帳號登入」即可。切換帳號用右上角的下拉選單。
 
 ## Development
 

@@ -23,7 +23,7 @@ This project is modified from [star-rail-warp-export](https://github.com/biuuu/s
 
 An Electron-based desktop tool that runs on Windows 64-bit.
 
-Reads game logs or uses proxy mode to obtain the authKey required to access the gacha history API, then uses the authKey to fetch gacha records.
+Logs in with an official Hypergryph (CN) or Gryphline (Global) account to fetch gacha records. The game client does not need to be open.
 
 ## Other languages
 
@@ -34,25 +34,27 @@ If you find existing translations inaccurate or improvable, feel free to submit 
 ## Usage
 
 1. Download and unzip the tool — [GitHub Releases](https://github.com/AiverAiva/Endfield-Permit-Export/releases/latest)
-2. Open the gacha details page in the game
+2. Click **Login** (tooltip: Add Account)
 
-   ![warp details](wish-history-en.png)
+   ![Login](login-button.png)
 
-3. Click the "Load data" button in the tool
+3. Select a server: CN (Hypergryph) or Global (Gryphline)
 
-   ![load data](load-data-en.png)
+   ![Select server](login-server.png)
 
-   If everything goes well, you'll see a loading prompt and the result will look like this:
+4. Sign in in the popup window
 
-   <details>
-    <summary>Expand the picture</summary>
+   ![Login window](login-window.png)
 
-   ![preview](preview-en.png)
-   </details>
+5. After login, pick the account from the dropdown in the top right
 
-To export data from multiple accounts, click the plus (+) button.
+   ![Select account](account-select.png)
 
-Switch to a new account in the game, open the gacha history, and click "Load data" again.
+6. Click **Update** to fetch pull history
+
+   ![Update data](update-data.png)
+
+To add another account, click **Login** again. Switch accounts from the dropdown.
 
 ## Development
 
