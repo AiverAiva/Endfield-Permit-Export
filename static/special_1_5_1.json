@@ -1,0 +1,151 @@
+{
+  "code": 0,
+  "data": {
+    "pool": {
+      "pool_gacha_type": "char",
+      "pool_name": "冬獵",
+      "version_num": "0",
+      "pool_type": "special",
+      "up6_name": "提弗洛斯",
+      "up6_image": "https://web-static.hg-cdn.com/upload/image/20260901/2d0a3e3e341ace481221bbaf658179ab.png",
+      "up6_avatar": "",
+      "up5_name": "",
+      "up5_image": "",
+      "up6_item_name": "提弗洛斯的信物",
+      "rotate_image": "",
+      "ticket_name": "鏃礪括羽尋訪憑證",
+      "ticket_ten_name": "",
+      "all": [
+        {
+          "id": "chr_0034_typhoea",
+          "name": "提弗洛斯",
+          "rarity": 6
+        },
+        {
+          "id": "chr_0035_liino",
+          "name": "梨諾",
+          "rarity": 6
+        },
+        {
+          "id": "chr_0032_lizhiyan",
+          "name": "訣",
+          "rarity": 6
+        },
+        {
+          "id": "chr_0009_azrila",
+          "name": "餘燼",
+          "rarity": 6
+        },
+        {
+          "id": "chr_0015_lifeng",
+          "name": "黎風",
+          "rarity": 6
+        },
+        {
+          "id": "chr_0025_ardelia",
+          "name": "艾爾黛拉",
+          "rarity": 6
+        },
+        {
+          "id": "chr_0026_lastrite",
+          "name": "別禮",
+          "rarity": 6
+        },
+        {
+          "id": "chr_0029_pograni",
+          "name": "駿衛",
+          "rarity": 6
+        },
+        {
+          "id": "chr_0004_pelica",
+          "name": "佩麗卡",
+          "rarity": 5
+        },
+        {
+          "id": "chr_0007_ikut",
+          "name": "弧光",
+          "rarity": 5
+        },
+        {
+          "id": "chr_0012_avywen",
+          "name": "艾維文娜",
+          "rarity": 5
+        },
+        {
+          "id": "chr_0018_dapan",
+          "name": "大潘",
+          "rarity": 5
+        },
+        {
+          "id": "chr_0005_chen",
+          "name": "陳千語",
+          "rarity": 5
+        },
+        {
+          "id": "chr_0006_wolfgd",
+          "name": "狼衛",
+          "rarity": 5
+        },
+        {
+          "id": "chr_0011_seraph",
+          "name": "賽希",
+          "rarity": 5
+        },
+        {
+          "id": "chr_0014_aurora",
+          "name": "晝雪",
+          "rarity": 5
+        },
+        {
+          "id": "chr_0024_deepfin",
+          "name": "阿列什",
+          "rarity": 5
+        },
+        {
+          "id": "chr_0019_karin",
+          "name": "秋栗",
+          "rarity": 4
+        },
+        {
+          "id": "chr_0020_meurs",
+          "name": "卡契爾",
+          "rarity": 4
+        },
+        {
+          "id": "chr_0021_whiten",
+          "name": "埃特拉",
+          "rarity": 4
+        },
+        {
+          "id": "chr_0022_bounda",
+          "name": "螢石",
+          "rarity": 4
+        },
+        {
+          "id": "chr_0023_antal",
+          "name": "安塔爾",
+          "rarity": 4
+        }
+      ],
+      "rotate_list": [
+        {
+          "name": "提弗洛斯",
+          "times": 3,
+          "image": "https://web-static.hg-cdn.com/upload/image/20260901/2c7857b7c4118548c3ec84c945b475aa.png"
+        },
+        {
+          "name": "梨諾",
+          "times": 2,
+          "image": "https://web-static.hg-cdn.com/upload/image/20260807/015cdcc9a856ad69e928ba05aba38aa6.png"
+        },
+        {
+          "name": "訣",
+          "times": 1,
+          "image": "https://web-static.hg-cdn.com/upload/image/20260715/7d5026b1c0dbeeb8b1e305eb8003bae5.png"
+        }
+      ]
+    },
+    "timezone": 8
+  },
+  "msg": ""
+}
