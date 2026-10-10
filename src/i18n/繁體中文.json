@@ -172,6 +172,7 @@
   "uigf.fileType": "統一可交換抽卡記錄標準 v4.0, v4.1",
   "gacha.type.beginner": "新手尋訪",
   "gacha.type.joint": "特殊尋訪",
+  "gacha.type.rerun": "重構尋訪",
   "gacha.type.special": "活動尋訪",
   "gacha.type.standard": "常駐尋訪",
   "gacha.type.urgent": "加急招募",
