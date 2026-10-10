@@ -323,6 +323,7 @@ const activeType = ref("special");
 const poolTypeEnumMap = {
   special: "E_CharacterGachaPoolType_Special",
   joint: "E_CharacterGachaPoolType_Joint",
+  rerun: "E_CharacterGachaPoolType_Rerun",
   standard: "E_CharacterGachaPoolType_Standard",
   beginner: "E_CharacterGachaPoolType_Beginner",
   weapon: "E_WeaponGachaPoolType_Special",
@@ -352,6 +353,7 @@ const poolTypes = computed(() => {
   if (!i18n?.value?.gacha?.type) {
     return [
       { key: "special", name: "Chartered" },
+      { key: "rerun", name: "RE-Factor" },
       { key: "joint", name: "Special" },
       { key: "weapon", name: "Arsenal" },
       { key: "standard", name: "Basic" },
@@ -362,6 +364,7 @@ const poolTypes = computed(() => {
   const types = i18n.value.gacha.type;
   return [
     { key: "special", name: types.special },
+    { key: "rerun", name: types.rerun },
     { key: "joint", name: types.joint },
     { key: "weapon", name: types.weapon },
     { key: "standard", name: types.standard },
@@ -373,6 +376,7 @@ const poolTypes = computed(() => {
 const activeTypeConfig = computed(() => {
   const configs = {
     special: { color: "bg-gradient-to-b from-red-500 to-orange-500", maxPity: 80 },
+    rerun: { color: "bg-gradient-to-b from-fuchsia-500 to-rose-500", maxPity: 80 },
     joint: { color: "bg-gradient-to-b from-red-500 to-orange-500", maxPity: 80 },
     weapon: { color: "bg-gradient-to-b from-purple-500 to-indigo-500", maxPity: 40 },
     standard: { color: "bg-gradient-to-b from-blue-500 to-cyan-500", maxPity: 80 },
@@ -453,7 +457,7 @@ const bannerList = computed(() => {
     
     // Spark status: simple pull count for special and weapon pools
     let sparkStatus = null;
-    if (activeType.value === 'special' || activeType.value === 'joint' || activeType.value === 'weapon') {
+    if (activeType.value === 'special' || activeType.value === 'joint' || activeType.value === 'rerun' || activeType.value === 'weapon') {
       const paidPulls = ascGroup.filter(r => !r.isFree).length;
       const target = activeType.value === 'weapon' ? 80 : 120;
       sparkStatus = {

@@ -181,6 +181,7 @@ const POOL_TYPES = [
     "E_CharacterGachaPoolType_Special",
     "E_CharacterGachaPoolType_Joint",
     "E_CharacterGachaPoolType_Beginner",
+    "E_CharacterGachaPoolType_Rerun",
 ];
 
 const poolIdMap = {
@@ -188,6 +189,7 @@ const poolIdMap = {
     "E_CharacterGachaPoolType_Special": "special",
     "E_CharacterGachaPoolType_Joint": "joint",
     "E_CharacterGachaPoolType_Beginner": "beginner",
+    "E_CharacterGachaPoolType_Rerun": "rerun",
 };
 
 const adaptUserLog = (userLog, poolType) => {
@@ -225,6 +227,7 @@ const processGryphlineList = ({ characterList = [], weaponList = [] }) => {
         "standard": [],
         "special": [],
         "joint": [],
+        "rerun": [],
         "weapon": [],
         "beginner": [],
         "urgent": [],
@@ -259,6 +262,7 @@ const processGryphlineList = ({ characterList = [], weaponList = [] }) => {
             poolId: item.poolId,
             poolName: item.poolName,
             count: "1",
+            isFree: !!item.isFree,
         };
 
         // Categorize Characters
@@ -283,6 +287,9 @@ const processGryphlineList = ({ characterList = [], weaponList = [] }) => {
             } else if (pid.startsWith("special_")) {
                 adapted.gacha_type = "special";
                 pools["special"].push(adapted);
+            } else if (pid.startsWith("rerun_")) {
+                adapted.gacha_type = "rerun";
+                pools["rerun"].push(adapted);
             } else {
                 // Fallback for unknown character pools
                 adapted.gacha_type = "standard";
@@ -480,6 +487,7 @@ const getAllRecord = async (
     typeMap.set("standard", i18n.parse(i18n.gacha.type.standard));
     typeMap.set("special", i18n.parse(i18n.gacha.type.special));
     typeMap.set("joint", i18n.parse(i18n.gacha.type.joint));
+    typeMap.set("rerun", i18n.parse(i18n.gacha.type.rerun));
     typeMap.set("weapon", i18n.parse(i18n.gacha.type.weapon));
     typeMap.set("beginner", i18n.parse(i18n.gacha.type.beginner));
     typeMap.set("urgent", i18n.parse(i18n.gacha.type.urgent));
@@ -818,6 +826,10 @@ const readData = async () => {
                     uiData.typeMap.set(
                         "joint",
                         i18n.parse(i18n.gacha.type.joint),
+                    );
+                    uiData.typeMap.set(
+                        "rerun",
+                        i18n.parse(i18n.gacha.type.rerun),
                     );
                     uiData.typeMap.set(
                         "weapon",

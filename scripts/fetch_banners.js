@@ -41,17 +41,16 @@ async function main() {
         try {
             const raw = fs.readFileSync(path.join(STATIC_DIR, file), 'utf-8');
             const data = JSON.parse(raw);
-            const imageUrl = data?.data?.pool?.up6_image;
+            const imageUrl = data?.data?.pool?.up6_image || data?.data?.pool?.up6_banner;
 
             if (imageUrl) {
                 console.log(`Downloading banner from ${imageUrl}...`);
                 await downloadImage(imageUrl, targetPath);
                 console.log(`[SUCCESS] Saved to ${targetPath}`);
             } else {
-                console.warn(`[WARNING] No 'up6_image' found in ${file}. Checking if it is a different structure...`);
-                // Fallback check just in case the structure is slightly different
+                console.warn(`[WARNING] No 'up6_image' or 'up6_banner' found in ${file}. Checking if it is a different structure...`);
                 if (data?.code === 0 && data?.data?.pool) {
-                     console.warn(`[WARNING] 'up6_image' is literally missing from the pool data in ${file}.`);
+                     console.warn(`[WARNING] Banner image fields are missing from the pool data in ${file}.`);
                 }
             }
         } catch (err) {

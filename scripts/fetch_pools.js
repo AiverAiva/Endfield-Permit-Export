@@ -4,8 +4,14 @@ const path = require('path');
 const STATIC_DIR = path.join(__dirname, '..', 'static');
 const CHECKPOINT_FILE = path.join(STATIC_DIR, 'checkpoint.txt');
 
-async function fetchPool(type, id) {
-    const url = `https://ef-webview.gryphline.com/api/content?lang=zh-tw&pool_id=${type}_${id}&server_id=2`;
+const CONTENT_API = 'https://ef-webview.gryphline.com/api/content';
+
+// Rerun pool IDs use the character asset suffix: rerun_chr_yvonne / rerun_wpn_yvonne.
+const KNOWN_RERUN_SUFFIXES = ['yvonne'];
+const SKIP_SUFFIXES = new Set(['endmin', 'endminm', 'endminf']);
+
+async function fetchPoolById(poolId) {
+    const url = `${CONTENT_API}?lang=zh-tw&pool_id=${poolId}&server_id=2`;
     console.log(`Fetching ${url}`);
     const res = await fetch(url);
     const data = await res.json();
@@ -13,6 +19,10 @@ async function fetchPool(type, id) {
         return data;
     }
     return null;
+}
+
+async function fetchPool(type, id) {
+    return fetchPoolById(`${type}_${id}`);
 }
 
 function parseId(idStr) {
@@ -24,11 +34,41 @@ function formatId(x, y, z) {
     return `${x}_${y}_${z}`;
 }
 
-async function main() {
-    if (!fs.existsSync(STATIC_DIR)) {
-        fs.mkdirSync(STATIC_DIR, { recursive: true });
+function suffixFromCharId(charId) {
+    if (!charId || !charId.startsWith('chr_')) return null;
+    const parts = charId.split('_');
+    if (parts.length < 3) return null;
+    const suffix = parts.slice(2).join('_');
+    if (!suffix || SKIP_SUFFIXES.has(suffix)) return null;
+    return suffix;
+}
+
+function collectRerunSuffixes() {
+    const suffixes = new Set(KNOWN_RERUN_SUFFIXES);
+
+    if (fs.existsSync(STATIC_DIR)) {
+        const specialFiles = fs.readdirSync(STATIC_DIR).filter(
+            (f) => f.startsWith('special_') && f.endsWith('.json'),
+        );
+        for (const file of specialFiles) {
+            try {
+                const data = JSON.parse(
+                    fs.readFileSync(path.join(STATIC_DIR, file), 'utf-8'),
+                );
+                const all = data?.data?.pool?.all || [];
+                const up = all.find((c) => c && c.rarity === 6 && c.id);
+                const suffix = suffixFromCharId(up && up.id);
+                if (suffix) suffixes.add(suffix);
+            } catch (err) {
+                console.warn(`Failed to read ${file}: ${err.message}`);
+            }
+        }
     }
 
+    return suffixes;
+}
+
+async function fetchNumberedCheckpoint() {
     let checkpointVal = '1_1_2';
     if (fs.existsSync(CHECKPOINT_FILE)) {
         const fileContent = fs.readFileSync(CHECKPOINT_FILE, 'utf-8').trim();
@@ -38,18 +78,18 @@ async function main() {
     }
 
     let { x, y, z } = parseId(checkpointVal);
-    
+
     // Check current checkpoint
     let currentId = formatId(x, y, z);
     let specialData = await fetchPool('special', currentId);
-    
+
     if (specialData) {
-        console.log(`Found pool for checkpoint ${currentId}, saving and finishing.`);
+        console.log(`Found pool for checkpoint ${currentId}, saving.`);
     } else {
         console.log(`Pool ${currentId} not found, trying ${formatId(x, y, z + 1)}`);
         currentId = formatId(x, y, z + 1);
         specialData = await fetchPool('special', currentId);
-        
+
         if (specialData) {
             console.log(`Found pool ${currentId}, updating checkpoint.`);
             z = z + 1;
@@ -59,27 +99,68 @@ async function main() {
             specialData = await fetchPool('special', currentId);
             if (specialData) {
                 console.log(`Found pool ${currentId}, updating checkpoint.`);
-                y = y + 1; z = 1;
+                y = y + 1;
+                z = 1;
             } else {
-                console.log(`Pool ${currentId} not found either. No new pool found.`);
-                return; // Stop here if nothing found
+                console.log(`Pool ${currentId} not found either. No new numbered pool found.`);
+                return;
             }
         }
     }
-    
-    // Final checkpoint after resolution
+
     const newCheckpoint = formatId(x, y, z);
     fs.writeFileSync(CHECKPOINT_FILE, newCheckpoint);
-    
-    // Fetch weapon data for the found checkpoint. The api uses 'weponbox' as pool_id prefix.
+
     const weponData = await fetchPool('weponbox', newCheckpoint);
-    
-    fs.writeFileSync(path.join(STATIC_DIR, `special_${newCheckpoint}.json`), JSON.stringify(specialData, null, 2));
+
+    fs.writeFileSync(
+        path.join(STATIC_DIR, `special_${newCheckpoint}.json`),
+        JSON.stringify(specialData, null, 2),
+    );
     if (weponData) {
-        // The API uses 'weponbox' as pool_id prefix, keeping it consistent here.
-        fs.writeFileSync(path.join(STATIC_DIR, `weponbox_${newCheckpoint}.json`), JSON.stringify(weponData, null, 2));
+        fs.writeFileSync(
+            path.join(STATIC_DIR, `weponbox_${newCheckpoint}.json`),
+            JSON.stringify(weponData, null, 2),
+        );
     }
-    console.log(`Done processing ${newCheckpoint}.`);
+    console.log(`Done processing numbered pool ${newCheckpoint}.`);
+}
+
+async function fetchRerunPools() {
+    const suffixes = collectRerunSuffixes();
+    const poolIds = [];
+    for (const suffix of suffixes) {
+        poolIds.push(`rerun_chr_${suffix}`);
+        poolIds.push(`rerun_wpn_${suffix}`);
+    }
+    poolIds.sort();
+
+    console.log(`Checking ${poolIds.length} rerun pool IDs...`);
+
+    for (const poolId of poolIds) {
+        const dest = path.join(STATIC_DIR, `${poolId}.json`);
+        if (fs.existsSync(dest)) {
+            console.log(`[SKIPPED] ${poolId}.json already exists.`);
+            continue;
+        }
+
+        const data = await fetchPoolById(poolId);
+        if (data) {
+            fs.writeFileSync(dest, JSON.stringify(data, null, 2));
+            console.log(`[SAVED] ${poolId}.json`);
+        } else {
+            console.log(`[MISS] ${poolId}`);
+        }
+    }
+}
+
+async function main() {
+    if (!fs.existsSync(STATIC_DIR)) {
+        fs.mkdirSync(STATIC_DIR, { recursive: true });
+    }
+
+    await fetchNumberedCheckpoint();
+    await fetchRerunPools();
 }
 
 main().catch(console.error);
