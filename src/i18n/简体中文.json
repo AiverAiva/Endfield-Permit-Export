@@ -209,6 +209,7 @@
   "char.chr_0033_camille": "卡缪",
   "char.chr_0034_typhoea": "提弗洛斯",
   "char.chr_0035_liino": "梨诺",
+  "char.chr_0036_jsspsi": "祀",
   "char.chr_0038_purrche": "噗切娜",
   "char.chr_9000_endmin": "管理员",
   "wpn.wpn_claym_0003": "工业零点一",
@@ -225,6 +226,8 @@
   "wpn.wpn_claym_0015": "O.B.J.重荷",
   "wpn.wpn_claym_0016": "幻想苦痛",
   "wpn.wpn_claym_0017": "赤缨",
+  "wpn.wpn_claym_0018": "玉中身",
+  "wpn.wpn_claym_0019": "悠久传承",
   "wpn.wpn_funnel_0001": "全自动骇新星",
   "wpn.wpn_funnel_0002": "吉米尼12",
   "wpn.wpn_funnel_0003": "荧光雷羽",
@@ -288,8 +291,10 @@
   "wpn.wpn_sword_0019": "O.B.J.轻芒",
   "wpn.wpn_sword_0020": "逐鳞3.0",
   "wpn.wpn_sword_0021": "宏愿",
+  "wpn.wpn_sword_0021_ink": "宏愿",
   "wpn.wpn_sword_0022": "狼之绯",
   "wpn.wpn_sword_0023": "点心时刻",
+  "wpn.wpn_sword_0024": "聚合工业",
   "wpn.wpn_sword_0026": "遥望",
   "symbol.colon": "："
 }

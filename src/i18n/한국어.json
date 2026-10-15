@@ -115,6 +115,7 @@
   "char.chr_0033_camille": "카뮤",
   "char.chr_0034_typhoea": "티프로스",
   "char.chr_0035_liino": "리노",
+  "char.chr_0036_jsspsi": "사",
   "char.chr_0038_purrche": "푸치나",
   "char.chr_9000_endmin": "관리자",
   "wpn.wpn_claym_0003": "공업 0.1",
@@ -131,6 +132,8 @@
   "wpn.wpn_claym_0015": "O.B.J. 헤비 버든",
   "wpn.wpn_claym_0016": "환상통",
   "wpn.wpn_claym_0017": "적영",
+  "wpn.wpn_claym_0018": "옥에 깃든 형체",
+  "wpn.wpn_claym_0019": "유구한 전승",
   "wpn.wpn_funnel_0001": "오토 하이퍼노바",
   "wpn.wpn_funnel_0002": "지미니 12",
   "wpn.wpn_funnel_0003": "섬광 번개",
@@ -194,8 +197,10 @@
   "wpn.wpn_sword_0019": "O.B.J. 엣지 오브 라이트",
   "wpn.wpn_sword_0020": "린수를 찾아서 3.0",
   "wpn.wpn_sword_0021": "장대한 염원",
+  "wpn.wpn_sword_0021_ink": "장대한 염원",
   "wpn.wpn_sword_0022": "늑대의 혈흔",
   "wpn.wpn_sword_0023": "간식 시간",
+  "wpn.wpn_sword_0024": "응집 공업",
   "wpn.wpn_sword_0026": "조망",
   "symbol.colon": ": "
 }
