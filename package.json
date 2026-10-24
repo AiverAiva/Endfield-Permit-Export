@@ -70,7 +70,11 @@
       "icon": "build/icons"
     }
   },
+  "resolutions": {
+    "minimatch": "10.2.3"
+  },
   "dependencies": {
+    "minimatch": "10.2.3",
     "vue-router": "4"
   },
   "devDependencies": {
